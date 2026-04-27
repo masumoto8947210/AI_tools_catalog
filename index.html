@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生成AI ツール詳細カタログ 2026</title>
+    <title>生成AI ツール詳細カタログ 2026 - 完全版</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -14,6 +14,8 @@
             --muted: #475569;
             --border: #e2e8f0;
             --accent: #eff6ff;
+            --field-bg: #f1f5f9;
+            --hover-link: #1d4ed8;
         }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
@@ -24,7 +26,7 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         header {
@@ -83,8 +85,7 @@
         }
         .grid {
             display: grid;
-            /* 広げたテキストに対応するため、カードの最小幅を広く設定 */
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 25px;
         }
         .card {
@@ -102,38 +103,57 @@
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
         .card-header {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--bg);
         }
         .card h3 {
             margin: 0 0 5px 0;
             font-size: 1.4rem;
+        }
+        .card h3 a {
             color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card h3 a::after {
+            content: "↗";
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 4px;
         }
         .card .provider {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: bold;
             color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+        }
+        .card .field-badge {
+            display: inline-block;
+            background: var(--field-bg);
+            color: var(--muted);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-weight: 600;
         }
         .card h4 {
-            margin: 15px 0 5px 0;
-            font-size: 1rem;
+            margin: 18px 0 6px 0;
+            font-size: 0.95rem;
             color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            font-weight: 800;
         }
         .card .features {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--muted);
             flex-grow: 1;
             margin-bottom: 15px;
         }
         .card .usecase {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background: var(--accent);
             padding: 12px 15px;
             border-radius: 8px;
@@ -142,10 +162,7 @@
         }
         .card .usecase ul {
             margin: 5px 0 0 0;
-            padding-left: 20px;
-        }
-        .hidden {
-            display: none;
+            padding-left: 18px;
         }
     </style>
 </head>
@@ -153,11 +170,11 @@
     <div class="container">
         <header>
             <h1>生成AI ツール詳細カタログ 2026</h1>
-            <p>各ツールの詳細な特徴と実践的な活用シナリオ</p>
+            <p>【分野・詳細機能・活用例】エンジニア向け完全版ガイド</p>
         </header>
 
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="ツール名、機能、活用例で検索... (例: Unity, RAG, ノーコード)">
+            <input type="text" id="searchInput" placeholder="名称、分野、機能、活用法で検索...">
         </div>
 
         <div class="tabs" id="tabsContainer"></div>
@@ -168,112 +185,136 @@
     <script>
         const catalog = [
             // 1. 対話・検索型
-            { cat: "1. 対話・検索型", name: "Gemini", provider: "Google", 
-              features: "100万トークンを超える圧倒的な長文コンテキストウィンドウを搭載。Google Workspace（ドキュメント、Gmail、ドライブ）とシームレスにネイティブ連携し、画像・音声・動画などマルチモーダルなデータを高度に理解します。", 
-              use: "<ul><li>数十ページに及ぶ複数の英語論文や仕様書を一括で読み込ませての要約・比較</li><li>Googleドライブ内のデータと連携した資料作成やデータ分析</li></ul>" },
-            { cat: "1. 対話・検索型", name: "ChatGPT / GPT-5", provider: "OpenAI", 
-              features: "業界標準の汎用テキスト生成AI。最新の推論特化モデル（o1/o3系）により、複雑な問題において人間を凌駕する思考プロセス（Chain of Thought）を実行。Advanced Voice Modeによる超自然な音声対話も強力です。", 
-              use: "<ul><li>アルゴリズムの複雑なバグの特定と修正案の構築</li><li>高度な数学的証明や論理パズルの解法</li><li>語学学習におけるネイティブ代わりの音声ロールプレイ</li></ul>" },
-            { cat: "1. 対話・検索型", name: "Claude 4 / 3.5", provider: "Anthropic", 
-              features: "非常に自然で人間らしい、流麗な日本語文章の生成能力を持ちます。コーディング能力においても極めて高く、Artifacts機能を使えば生成したコード（HTML/React等）をブラウザ上で即座にプレビュー・動作確認できます。", 
-              use: "<ul><li>読者を惹きつける高品質なブログ記事やレポートの執筆</li><li>Webアプリのプロトタイプを数分で作成し、UIをその場で調整</li></ul>" },
-            { cat: "1. 対話・検索型", name: "Perplexity AI", provider: "Perplexity", 
-              features: "「検索エンジン型」のAI。最新のWeb情報をリアルタイムでクロールし、回答の根拠となる信頼性の高いソース（URL）を引用番号付きで明確に提示。Pro検索では複数ステップの深掘り調査を自動実行します。", 
-              use: "<ul><li>最新のAI技術動向やニュースのファクトチェック</li><li>大学のレポート作成における、信頼できる学術論文や公式リファレンスの効率的な収集</li></ul>" },
-            { cat: "1. 対話・検索型", name: "DeepSeek-R1", provider: "DeepSeek", 
-              features: "推論・数学・コーディングのベンチマークでトップクラスに匹敵する性能を、圧倒的な低コストで実現。AI内部の「思考プロセス」を透過的に出力し、どのように答えを導き出したかを確認できます。", 
-              use: "<ul><li>複雑なロジック設計のステップバイステップでの検証</li><li>ローカルや自社サーバーに安価にデプロイしてのデータ一括処理</li></ul>" },
-            { cat: "1. 対話・検索型", name: "NotebookLM", provider: "Google", 
-              features: "アップロードしたPDFやテキストデータ「のみ」を情報源として回答するグラウンディング特化ツール。ハルシネーション（嘘）を防ぎます。資料に基づき、2人のAIが対話する「音声ポッドキャスト」を自動生成する機能が話題です。", 
-              use: "<ul><li>授業のレジュメを読み込ませ「自分専用のAI家庭教師」としてクイズを作らせる</li><li>難解な論文をラジオ番組風の音声に変換して通学中に聴く</li></ul>" },
+            { cat: "1. 対話・検索型", name: "Gemini", url: "https://gemini.google.com/", provider: "Google", field: "マルチモーダル推論・情報検索",
+              features: "Google独自のネイティブ・マルチモーダル・アーキテクチャ。100万トークン超のコンテキストウィンドウにより、膨大なコードベースや数時間分の動画を一括で理解します。Google Workspace統合により、ドライブ内のドキュメントやGmailの情報を直接、要約・分析・出力可能です。", 
+              use: "<ul><li>大規模なプロジェクトドキュメントの一括解析と検索</li><li>Google Sheetsへの自動データ抽出とレポート生成</li></ul>" },
+            { cat: "1. 対話・検索型", name: "ChatGPT", url: "https://chatgpt.com/", provider: "OpenAI", field: "汎用対話・マルチタスク",
+              features: "世界で最も汎用性の高いAI。最新のGPT-5モデルを搭載。高度な指示追従性（Instruction Following）に加え、リアルタイムのWebアクセスと『Advanced Data Analysis』によるPython実行機能を備え、データの可視化や複雑な物理計算をブラウザ上で行います。", 
+              use: "<ul><li>アルゴリズムの解説、C言語等のデバッグ支援</li><li>論文やWeb記事の要約、外国語の翻訳</li></ul>" },
+            { cat: "1. 対話・検索型", name: "GPT-5 (o1/o3系)", url: "https://openai.com/", provider: "OpenAI", field: "高度論理推論・STEM特化",
+              features: "Chain-of-Thought（思考の連鎖）を内部で明示的に実行する推論特化型モデル。数学の未解決問題や複雑なアルゴリズムの証明において人間を凌駕するスコアを記録。じっくり時間をかけて「考える」ことで、回答の正確性を極限まで高めています。", 
+              use: "<ul><li>数学の難問や競技プログラミングレベルのコーディング</li><li>システム設計における論理的脆弱性の事前検証</li></ul>" },
+            { cat: "1. 対話・検索型", name: "Claude 4", url: "https://claude.ai/", provider: "Anthropic", field: "高精度文章作成・UI設計",
+              features: "人間らしい自然な日本語と高い倫理性。Artifacts機能により、生成したReactコードやHTMLをサイドバーで即座に動作確認できます。競合他社に比べハルシネーション（嘘）が非常に少なく、指示に対して忠実で繊細な表現が可能です。", 
+              use: "<ul><li>Webフロントエンドのプロトタイプ爆速制作</li><li>論理的かつ共感性の高い公式レポートやプレゼン構成の執筆</li></ul>" },
+            { cat: "1. 対話・検索型", name: "Perplexity AI", url: "https://www.perplexity.ai/", provider: "Perplexity", field: "AI検索・リサーチ",
+              features: "従来の検索エンジンに代わる『答えを出す検索AI』。最新のWeb情報をリアルタイムでクロールし、回答の根拠となる引用元URLを明示。情報の鮮度と信頼性が極めて高く、複数ステップの深掘り調査を自動で進める機能（Pro検索）が強力です。", 
+              use: "<ul><li>最新のAI動向や、公式ドキュメントのリファレンス調査</li><li>根拠（URL）を明示する必要がある学術的リサーチ</li></ul>" },
+            { cat: "1. 対話・検索型", name: "DeepSeek-R1", url: "https://www.deepseek.com/", provider: "DeepSeek", field: "オープンウェイト推論モデル",
+              features: "非常に高い推論能力を持ちながら、低コストで提供されるモデル。AIが答えを出すまでの思考過程がすべて出力されるため、論理的なミスを人間がチェックしやすい。数学や物理、プログラミング分野でGPT-4oを凌駕する性能を誇ります。", 
+              use: "<ul><li>計算の途中経過を確認したい技術計算</li><li>ローカル環境へのデプロイを見越した高精度処理</li></ul>" },
+            { cat: "1. 対話・検索型", name: "NotebookLM", url: "https://notebooklm.google.com/", provider: "Google", field: "資料解析・パーソナル学習",
+              features: "特定の資料（PDF、テキスト）のみをソースとして対話するグラウンディング（根拠付け）に特化。読み込ませた膨大なノートから関連箇所を瞬時に引用し、要約・比較を行います。最近では資料内容を二人組のAIが解説するポッドキャスト生成機能が搭載されました。", 
+              use: "<ul><li>講義ノートや論文をソースとした試験対策</li><li>自分だけのナレッジベース構築</li></ul>" },
             
             // 2. 画像・動画・3D
-            { cat: "2. 画像・動画・3D", name: "Midjourney", provider: "Midjourney", 
-              features: "プロンプトへの忠実度と芸術的な表現力が最高峰の画像生成AI。最新版では文字の描画にも対応し、Discord上で動作するため世界中のユーザーとのプロンプト共有が活発に行われています。", 
-              use: "<ul><li>Webサイトのヒーロー画像や広告バナーの作成</li><li>ゲームのコンセプトアート、SNS用の高品質なアイキャッチ制作</li></ul>" },
-            { cat: "2. 画像・動画・3D", name: "Stable Diffusion", provider: "Stability AI", 
-              features: "オープンソースでPCローカル実行が可能。LoRAやControlNetを用いた細かな画風調整、ポーズ指定、特定のキャラクターの一貫した生成など、圧倒的なカスタマイズ性を誇る玄人向けツールです。", 
-              use: "<ul><li>自作ゲームの立ち絵量産や一貫性のあるキャラクター素材の作成</li><li>企業内での機密性の高いデザイン業務やオリジナルイラスト作成</li></ul>" },
-            { cat: "2. 画像・動画・3D", name: "Sora / Luma / Runway", provider: "各社", 
-              features: "テキストや画像から、物理法則に沿った破綻のない高解像度動画を生成。カメラワーク（パン、ズーム）の指定や、画像から動画への変換（Image-to-Video）機能に優れ、映像制作の常識を覆しています。", 
-              use: "<ul><li>製品プロモーションビデオのBロール（背景映像）の即席作成</li><li>ミュージックビデオの幻想的な映像素材制作</li></ul>" },
-            { cat: "2. 画像・動画・3D", name: "Synthesia / HeyGen", provider: "各社", 
-              features: "実写レベルのAIアバターが、入力テキストを自然なリップシンク（口の動き）で読み上げます。自分の顔と声を学習させたカスタムアバターも作成でき、100以上の言語へ自動で翻訳・吹き替えが可能です。", 
-              use: "<ul><li>社内向け研修動画やマニュアルの多言語展開</li><li>顔出し・撮影不要のYouTube解説動画の量産</li></ul>" },
-            { cat: "2. 画像・動画・3D", name: "Meshy / Luma Genie", provider: "各社", 
-              features: "テキストや1枚の画像から、数分でテクスチャ付きの3Dモデル（obj/fbx等）を自動生成。ポリゴン数の削減など、ゲームエンジン向けの最適化機能も備え、3Dモデリングの時間を劇的に短縮します。", 
-              use: "<ul><li>UnityやUnreal Engineでのプロトタイプ開発における背景小物（プロップス）の爆速作成</li><li>AR/VRアプリケーション向けのアセット生成</li></ul>" },
-            { cat: "2. 画像・動画・3D", name: "Adobe Firefly", provider: "Adobe", 
-              features: "Adobeのストック画像など、著作権が完全にクリアなデータのみで学習されているため、企業が商用利用する際の法的リスクが極めて低いのが特徴。Photoshop等の既存ツールに「生成塗りつぶし」として深く統合されています。", 
-              use: "<ul><li>広告バナーの背景の自然な拡張や、不要物の違和感ない除去</li><li>商用ポスターやパッケージデザインの安全な素材生成</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Midjourney", url: "https://www.midjourney.com/", provider: "Midjourney", field: "芸術的画像生成",
+              features: "業界屈指の画質と芸術性。簡単なプロンプトから写真、絵画、アニメ等、あらゆるスタイルの画像を生成。最新のV7モデルでは文字の正確な描画や、ポーズの細かい制御（Style Reference）が可能になり、クリエイティブ制作の標準となっています。", 
+              use: "<ul><li>ハイクオリティなロゴ、キャラクター、背景のデザイン</li><li>SNSやブログ用のアイキャッチ画像、ポスター制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Stable Diffusion", url: "https://stability.ai/", provider: "Stability AI", field: "オープンソース画像生成",
+              features: "圧倒的なカスタマイズ性。LoRAやControlNetといった拡張機能を用い、特定のポーズ、構図、特定のキャラクターの一貫性を完全にコントロール可能。PCローカル環境（GPU）での実行が可能で、表現の制限がほぼありません。", 
+              use: "<ul><li>自作ゲームの素材量産、特定の画風への統一</li><li>AI美女やモデル等の高精度なフォトリアル画像制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Sora", url: "https://openai.com/sora", provider: "OpenAI", field: "物理シミュレーション動画生成",
+              features: "テキストから最大1分の高品質な動画を生成。複雑なカメラワーク、動的な背景、そして物理法則（影、水の動き、衝撃）をAIが高度に理解しており、実写と見紛うリアリズムを実現しています。", 
+              use: "<ul><li>映画やCMのコンセプトムービー、Bロール素材の生成</li><li>物理シミュレーションを活かした自然な映像表現</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Luma Dream Machine", url: "https://lumalabs.ai/dream-machine", provider: "Luma AI", field: "高速高品質動画生成",
+              features: "120秒で5秒間の高品質動画を生成。物理的な正確さと動きの滑らかさに優れ、特にキャラクターの動きや感情表現を伴う映像に強い。既存の静止画から動画化するImage-to-Video機能の精度が高いです。", 
+              use: "<ul><li>静止画イラストの動画化、製品プロモーション動画</li><li>SNS向けのクリエイティブなショート動画制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Runway", url: "https://runwayml.com/", provider: "Runway", field: "次世代映像制作ツール",
+              features: "Gen-3 Alpha等の最先端ビデオ生成モデルを搭載。ブラシ操作で特定の場所だけ動かす（Motion Brush）機能や、カメラのパン・チートを詳細に指定できる機能など、プロの映像制作現場での利用を想定したツールが充実しています。", 
+              use: "<ul><li>プロ仕様のVFX、映像加工、特殊効果の付与</li><li>Webサイト背景用の抽象的な高品質アニメーション制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Synthesia", url: "https://www.synthesia.io/", provider: "Synthesia", field: "AIアバター・教育動画",
+              features: "実在する人物をベースとしたAIアバターがテキストを読み上げる。140以上の言語でのリップシンク（口の動き）に対応。撮影の手間をゼロにし、スライド資料をアップするだけでプロ品質の解説動画が完成します。", 
+              use: "<ul><li>グローバルな企業研修動画、社内マニュアルの多言語化</li><li>教育用コースのナレーション動画制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "HeyGen", url: "https://www.heygen.com/", provider: "HeyGen", field: "パーソナルアバター・マーケティング",
+              features: "自分の顔と声を学習させ、本人と区別がつかないデジタルクローンを作成可能。1枚の写真から顔を動かす技術や、既存の動画を他言語に吹き替える（Video Translate）機能など、ビデオマーケティングに特化しています。", 
+              use: "<ul><li>顔出し不要のYouTubeチャンネル、多言語でのスピーチ</li><li>自分専用のアバターによる顧客へのメッセージ動画</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Meshy", url: "https://www.meshy.ai/", provider: "Meshy", field: "AI 3Dモデリング",
+              features: "テキストや2D画像から、Unity等のゲームエンジンで即使えるテクスチャ付き3Dモデルを生成。PBR（物理ベースレンダリング）対応のテクスチャや、リメッシュ機能を備え、モデリングの工程を大幅に短縮します。", 
+              use: "<ul><li>Unity開発での背景小物やプロップスの量産</li><li>3Dコンセプトのラフモデルの爆速制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Luma Genie", url: "https://lumalabs.ai/genie", provider: "Luma AI", field: "高速3Dアセット生成",
+              features: "数秒で3Dモデルのプロトタイプを4パターン同時生成。スマホのカメラで撮影した物体を3D化する技術（NeRF/3DGS）にも通じており、現実の物体をデジタル空間へ取り込む能力に長けています。", 
+              use: "<ul><li>ARアプリケーション向けの簡易3Dアセット作成</li><li>リアルな物体をゲーム空間へインポートするためのベース作成</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Adobe Firefly", url: "https://firefly.adobe.com/", provider: "Adobe", field: "商用安全・クリエイティブ統合",
+              features: "Adobe Stock等の著作権クリアなデータで学習。Photoshop内の『生成塗りつぶし』により、画像の一部を消去・変更する作業が一瞬で完了。Illustratorと連携したベクターデータの生成も可能です。", 
+              use: "<ul><li>商用デザイン、パッケージ制作、Webバナーの修正</li><li>著作権を気にする必要がある企業プロジェクト</li></ul>" },
 
             // 3. 開発エディタ
-            { cat: "3. 開発エディタ", name: "Cursor", provider: "Anysphere", 
-              features: "VS Codeをベースにした現在最も人気のAIエディタ。プロジェクトのフォルダ全体（Codebase）をインデックス化し、関連ファイルを跨いだ高度な文脈理解に基づくコード生成や修正提案（Composer機能）が強力です。", 
-              use: "<ul><li>新規アプリのベースコード一式の一括生成</li><li>関連ファイルにまたがる複雑なエラーの根本原因特定と自動修正</li></ul>" },
-            { cat: "3. 開発エディタ", name: "Zed", provider: "Zed Industries", 
-              features: "Rust言語でゼロから開発された次世代エディタ。GPU描画による圧倒的な起動速度と入力の低遅延を実現。複数人でのリアルタイム共同編集と、エディタ内蔵のAI連携がシームレスに行えます。", 
-              use: "<ul><li>遅延を極端に嫌うヘビーなコーディング作業</li><li>チームメンバーやAIとのリモートでの快適なペアプログラミング</li></ul>" },
-            { cat: "3. 開発エディタ", name: "Windsurf", provider: "Codium", 
-              features: "開発者の「フロー状態」の維持を重視したIDE。AIが開発者の意図を先読みし、カーソル位置のコンテキストから自律的に複数ファイルの編集やターミナルコマンドの実行までを行う「エージェント型」の機能が特徴です。", 
-              use: "<ul><li>ライブラリのバージョンアップに伴う複数ファイルの一括リファクタリング</li><li>コードを書きながらバックグラウンドで自動的にテストを走らせる</li></ul>" },
-            { cat: "3. 開発エディタ", name: "GitHub Copilot", provider: "Microsoft", 
-              features: "開発環境のデファクトスタンダード。コメントを書くだけで関数全体を提案する強力な補完機能や、チャットによるコード解説を提供。既存の様々なエディタに拡張機能として導入できます。", 
-              use: "<ul><li>ボイラープレート（定型コード）の高速タイピング</li><li>複雑な正規表現やSQLクエリ、テストコードの自動生成</li></ul>" },
-            { cat: "3. 開発エディタ", name: "v0.dev / Lovable", provider: "各社", 
-              features: "プロンプト（テキスト指示）を入力するだけで、モダンなUIコンポーネント（React/Tailwind CSS）やWebアプリケーションのフロントエンド画面一式を数秒で生成し、即座にプレビュー表示します。", 
-              use: "<ul><li>ハッカソンでの爆速プロトタイプ作成</li><li>デザイナー不在のプロジェクトでの管理画面UIの構築</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Cursor", url: "https://www.cursor.com/", provider: "Anysphere", field: "AIネイティブIDE",
+              features: "VS CodeからフォークしたAI第一のエディタ。プロジェクト全体をインデックス化し、『Composer』機能を使えば複数のファイルにまたがるコード修正をAIが自律的に実行。エンジニアが最も注目する開発環境です。", 
+              use: "<ul><li>C#やC言語の既存コードに対する機能追加とバグ修正</li><li>Unityプロジェクト全体の構造把握と最適化</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Zed", url: "https://zed.dev/", provider: "Zed Industries", field: "超高速・高性能エディタ",
+              features: "Rust言語でゼロから開発されたエディタ。GPUによる高速な描画により、入力のレイテンシを極限まで削減。AIチャットとコード編集、複数人によるリアルタイムの共同作業が一体化しています。", 
+              use: "<ul><li>1ミリ秒の遅延も許さないヘビーな開発作業</li><li>AIとペアプログラミングを行いながらの爆速実装</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Windsurf", url: "https://codeium.com/windsurf", provider: "Cognition", field: "エージェント型IDE",
+              features: "開発者のコンテキストを完全に理解し、次に何をしたいかを先回りする『Flow』機能が特徴。AIがただの補完ツールではなく、ターミナル操作やテストの実行まで行う相棒（エージェント）として機能します。", 
+              use: "<ul><li>開発の流れを止めないシームレスなAI連携</li><li>テストを自動で実行しながらのコードリファクタリング</li></ul>" },
+            { cat: "3. 開発エディタ", name: "GitHub Copilot", url: "https://github.com/features/copilot", provider: "GitHub", field: "開発支援・コード補完標準",
+              features: "世界で最も使われているAIコーディング支援。コメントからのコード生成精度が高く、GitHub上の膨大なオープンソースデータを学習。Copilot Chatにより、既存コードの解説やリファクタリングも容易です。", 
+              use: "<ul><li>ボイラープレート（定型コード）の爆速記述</li><li>複雑な正規表現やSQL、単位テストの自動生成</li></ul>" },
+            { cat: "3. 開発エディタ", name: "v0.dev", url: "https://v0.dev/", provider: "Vercel", field: "UIコンポーネント生成",
+              features: "プロンプトからモダンなReactコンポーネント（Tailwind CSS/shadcn/ui）を一瞬で生成。見た目を確認しながら調整し、そのままコードをコピー、またはVercelへ即座にデプロイ可能です。", 
+              use: "<ul><li>WebアプリのUIデザイン、管理画面、プロトタイプ制作</li><li>ハッカソン等でのフロントエンド爆速開発</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Lovable", url: "https://lovable.dev/", provider: "Lovable Labs", field: "フルスタックWebアプリ生成",
+              features: "UIだけでなく、動作するフルスタックWebアプリを対話形式で構築。見た目の指示を出すだけで、必要なロジックを含んだコード全体を構築し、ホスティングまで自動で行います。", 
+              use: "<ul><li>アイデアから数分で動作するWebサービスを作成</li><li>ノーコード感覚で本格的なWebアプリを構築</li></ul>" },
 
             // 4. AIエージェント
-            { cat: "4. AIエージェント", name: "Claude Code", provider: "Anthropic", 
-              features: "ターミナル（CLI）上で直接動作する開発者向けエージェント。ファイルの読み書き、コマンドの実行、エラーの修正を完全に自律的にループ処理し、外部ツール（MCP）との連携も可能です。", 
-              use: "<ul><li>既存のC#スクリプトのテストコード自動作成と実行・修正のループ</li><li>大規模なディレクトリ構造やファイル名の一括変更</li></ul>" },
-            { cat: "4. AIエージェント", name: "OpenClaw (Molt Bot)", provider: "Open Source", 
-              features: "PCのローカル環境で動作する自律アシスタント。ブラウザ操作やファイル操作の権限を持ち、Discordやスマホアプリからの自然言語の指示で自宅のPCを遠隔操作できるオープンソースプロジェクトです。", 
-              use: "<ul><li>「毎朝特定のサイトを巡回してスクショを撮り、Slackに報告する」といった日常業務の自動化</li><li>スマホから指示して自宅PCに重い処理をやらせる</li></ul>" },
-            { cat: "4. AIエージェント", name: "Devin / Devika", provider: "各社", 
-              features: "「世界初のAIソフトウェアエンジニア」。抽象的な要件を伝えるだけで、自分で計画を立て、ブラウザでAPIドキュメントを読み、環境構築からコーディング、デバッグ、デプロイまでをEnd-to-Endで遂行します。", 
-              use: "<ul><li>クラウドソーシングでのシンプルなWeb開発案件の自動消化</li><li>社内用ツールやスクレイピングBotのゼロからの完全自動構築</li></ul>" },
-            { cat: "4. AIエージェント", name: "Dify / Coze", provider: "各社", 
-              features: "ノーコード・ローコードで、RAG（検索拡張生成）やAPI連携を組み合わせた複雑なAIエージェント（ワークフロー）を視覚的に設計・公開できる強力な開発プラットフォームです。", 
-              use: "<ul><li>自社のFAQやマニュアルを読み込ませた高精度なカスタマーサポートBotの構築</li><li>指定URLから情報を抽出・翻訳・要約する自動情報収集ツールの作成</li></ul>" },
-            { cat: "4. AIエージェント", name: "Operator", provider: "OpenAI", 
-              features: "ユーザーの代わりにWebブラウザを直接操作し、フォームの入力、クリック、画面遷移などの「行動」を代行するエージェント。複雑なWeb上のタスクをテキストの指示だけで完結させます。", 
-              use: "<ul><li>出張の手配（ホテル・飛行機の最安値検索、スケジュール調整から予約まで）</li><li>競合他社の複数のECサイトを横断した価格・在庫調査</li></ul>" },
+            { cat: "4. AIエージェント", name: "Claude Code", url: "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview", provider: "Anthropic", field: "自律型開発エージェント",
+              features: "ターミナル上で動作する『動くAI』。ファイルの読み書き、Git操作、コマンドの実行を自律的に行い、指示されたバグの修正からテスト実行までを完全に自動で繰り返します。MCPプロトコルによる拡張も可能です。", 
+              use: "<ul><li>C言語プロジェクトのバグ特定と修正の完全自動化</li><li>大規模なコードベースに対するテストコードの一括作成</li></ul>" },
+            { cat: "4. AIエージェント", name: "OpenClaw", url: "https://openclaw.ai/", provider: "Open Source", field: "PC操作・汎用エージェント",
+              features: "ユーザーの代わりにPCを直接操作する自律エージェント。ブラウザの操作、ファイルの管理、アプリの起動を、スマホやDiscord経由の音声指示で代行。自宅のPCを自分専用のロボットのように使えます。", 
+              use: "<ul><li>「毎朝のニュースを集めて要約しSlackへ投稿」等の業務自動化</li><li>外部からの自宅PC遠隔操作とタスク指示</li></ul>" },
+            { cat: "4. AIエージェント", name: "Devin", url: "https://www.cognition-labs.com/", provider: "Cognition", field: "完全自律エンジニア",
+              features: "世界初の完全自律型AIエンジニア。要件定義、ブラウザでのドキュメント調査、環境構築、デバッグまで全行程を一人で担当。AIがブラウザで技術的な問題を解決しながら進める様子を監視できます。", 
+              use: "<ul><li>既存のリポジトリへの複雑な新機能実装の丸投げ</li><li>自律的なスクレイピングBotやツールの構築</li></ul>" },
+            { cat: "4. AIエージェント", name: "Dify", url: "https://dify.ai/", provider: "LangGenius", field: "LLMアプリ開発プラットフォーム",
+              features: "ノーコードで高度なAIエージェント（ワークフロー）を視覚的に構築。RAG（検索拡張生成）エンジンの性能が高く、自分たちのデータに基づいた高精度なAIアプリをすぐに公開・運用できます。", 
+              use: "<ul><li>社内独自のデータを活用した特化型チャットボット制作</li><li>AIを組み込んだWebサービスのバックエンド構築</li></ul>" },
+            { cat: "4. AIエージェント", name: "Coze", url: "https://www.coze.com/", provider: "ByteDance", field: "Bot構築・配信プラットフォーム",
+              features: "TikTokやDiscord等、様々なメッセージアプリにAI Botを配信可能。豊富なプラグインにより、Google検索や計算、ニュース取得などの機能をBotへ簡単に追加できるエコシステムが特徴です。", 
+              use: "<ul><li>Discord等のコミュニティ向け多機能Bot作成</li><li>APIを駆使した便利な個人用アシスタントBotの構築</li></ul>" },
+            { cat: "4. AIエージェント", name: "Operator", url: "https://openai.com/index/introducing-operator/", provider: "OpenAI", field: "Web操作代行エージェント",
+              features: "ブラウザを人間のように直接操作。ユーザーに代わってフォームへの入力、ボタンのクリック、ページの遷移を行い、複雑な予約作業や購買、情報収集タスクをテキストの指示だけで完結させます。", 
+              use: "<ul><li>フライトやホテルの複雑な条件検索と予約代行</li><li>Web上の情報を統合した市場調査レポートの自動作成</li></ul>" },
 
             // 5. ローカルLLM
-            { cat: "5. ローカルLLM", name: "Ollama", provider: "Ollama", 
-              features: "ローカル環境でLLMを動かすための最もポピュラーで軽量なツール。コマンド一つでモデルをダウンロードでき、REST APIサーバーとしても機能するため、他のアプリとの連携が極めて容易です。", 
-              use: "<ul><li>Cursorや他のエディタのカスタムモデル（バックエンド）としての利用</li><li>自作のPythonスクリプトからローカルAIを呼び出しての安全なデータ一括処理</li></ul>" },
-            { cat: "5. ローカルLLM", name: "LM Studio", provider: "LM Studio", 
-              features: "ターミナル操作が苦手な人でも使える、洗練されたGUIを備えたAI管理ソフト。Hugging Faceからモデルを検索・ダウンロードし、チャット画面で即座にテストやパラメータ調整ができます。", 
-              use: "<ul><li>PCのVRAM容量に合わせた最適な量子化モデルの選定とダウンロード</li><li>複数モデルを並べての回答精度の比較テスト</li></ul>" },
-            { cat: "5. ローカルLLM", name: "Llama 4", provider: "Meta", 
-              features: "Meta社がオープンソースで提供する業界最高峰のモデル。軽量モデルでも商用レベルの推論能力を持ち、コンテキスト長が非常に長いバージョンもあるため、オフライン環境での最高峰の知能として機能します。", 
-              use: "<ul><li>外部に送信できない機密性の高い顧客データや医療データの社内処理</li><li>独自の社内用語をファインチューニングした特化型モデルの開発基盤</li></ul>" },
-            { cat: "5. ローカルLLM", name: "Qwen 3 / 3.5", provider: "Alibaba", 
-              features: "オープンソースでありながら、日本語の語彙と文化的ニュアンスの理解において群を抜いており、比較的小さなパラメータサイズ（4B〜14B）でも非常に賢く動作します。", 
-              use: "<ul><li>GPU搭載のノートPCでの快適なオフライン日本語チャット</li><li>スマホアプリやエッジデバイスへの軽量モデルの組み込み</li></ul>" },
-            { cat: "5. ローカルLLM", name: "AnythingLLM", provider: "Mintplex", 
-              features: "デスクトップアプリ型の「オールインワンRAGツール」。手元のPDFやWordファイルをドラッグ＆ドロップするだけで、その内容について質問できるローカルAI環境を安全に構築できます。", 
-              use: "<ul><li>社外秘の研究データや未公開論文を読み込ませての安全な検索・要約システム</li><li>個人の日記や過去のプロジェクト資料のデータベース化</li></ul>" },
+            { cat: "5. ローカルLLM", name: "Ollama", url: "https://ollama.com/", provider: "Ollama", field: "ローカル実行エンジン",
+              features: "コマンドラインから簡単にローカルLLMを起動・実行。LlamaやQwenなど多様なモデルを一発で導入可能。非常に軽量で、バックグラウンドのAPIサーバーとしても優秀なため、自作アプリのAI基盤に最適です。", 
+              use: "<ul><li>プライバシーを重視したオフラインでのAI活用</li><li>自作プログラムからのローカルAI呼び出し・処理</li></ul>" },
+            { cat: "5. ローカルLLM", name: "LM Studio", url: "https://lmstudio.ai/", provider: "Element Labs", field: "GUIモデル管理ツール",
+              features: "専門知識不要でローカルAIを使える直感的なGUI。Hugging Face上の無数のモデルを検索・一括管理し、自分のPCスペック（VRAM等）に合わせて最適な設定で動作させることが可能です。", 
+              use: "<ul><li>多様なオープンソースモデルの精度比較テスト</li><li>安全な環境でのAIとのオフライン対話</li></ul>" },
+            { cat: "5. ローカルLLM", name: "Llama 4", url: "https://llama.meta.com/", provider: "Meta", field: "オープンソースLLM基盤",
+              features: "Metaが開発する最高峰のオープンソースLLM。商用利用可能で、機密データを外部に送ることなく最高クラスの知能を手元で動かせます。長い文脈の理解と、微細な指示への対応力が劇的に向上しました。", 
+              use: "<ul><li>社内・研究室内の秘匿性の高いデータ解析</li><li>特定の専門領域への追加学習（ファインチューニング）用基盤</li></ul>" },
+            { cat: "5. ローカルLLM", name: "Qwen 3.5", url: "https://qwenlm.github.io/", provider: "Alibaba Cloud", field: "日本語・アジア圏特化LLM",
+              features: "オープンソースモデルの中で最高クラスの日本語理解力を誇る。小さなパラメータ（4B〜14B）でも非常に賢く、ゲーミングノートPC等でも非常に高速に動作するため、ローカル開発に最も適したモデルの一つです。", 
+              use: "<ul><li>オフライン環境での日本語文書の推敲、コーディング補助</li><li>ノートPCでの手軽なAI実行環境構築</li></ul>" },
+            { cat: "5. ローカルLLM", name: "AnythingLLM", url: "https://useanything.com/", provider: "Mintplex Labs", field: "デスクトップ型個人RAG",
+              features: "誰でも簡単に『自分専用AI』を作れるデスクトップアプリ。大量のPDFやドキュメントを読み込ませるだけで、その情報に基づく回答が可能に。すべてローカル完結するため、情報の流出リスクが皆無です。", 
+              use: "<ul><li>未公開の研究資料や個人的なノートの全文検索・要約</li><li>機密資料を外部AIに送らずに解析したい場合の最適解</li></ul>" },
 
             // 6. プラットフォーム・その他
-            { cat: "6. プラットフォーム・その他", name: "Antigravity", provider: "基盤", 
-              features: "AIエージェントを隔離された安全な環境（サンドボックス）で動作させるための実行インフラ。エージェントの暴走による意図しないファイル削除や、PCリソースの過剰消費をシステムレベルで防ぎます。", 
-              use: "<ul><li>未知のオープンソース・エージェントをローカルで安全にテスト動作させる</li><li>複数のAIエージェントを連携動作させる際の共通プラットフォームとして</li></ul>" },
-            { cat: "6. プラットフォーム・その他", name: "Suno AI / Udio", provider: "各社", 
-              features: "歌詞や音楽のジャンル（例：「J-POP、疾走感、男性ボーカル」）を指定するだけで、ボーカル入りの高品質なフル尺の楽曲を数分で生成。プロ顔負けの音質で、音楽制作のハードルをゼロにしました。", 
-              use: "<ul><li>YouTube動画のオープニングBGMやエンディングテーマ作成</li><li>インディーゲームの主題歌制作、オリジナルのポッドキャスト用ジングル</li></ul>" },
-            { cat: "6. プラットフォーム・その他", name: "ElevenLabs", provider: "音声", 
-              features: "わずか数秒の音声サンプルから、本人の声色やイントネーションを完全に再現するボイスクローニング機能が最強。感情の起伏を付けた極めて自然で高音質なナレーション生成が可能です。", 
-              use: "<ul><li>オーディオブックの自動読み上げ制作</li><li>多言語動画の自声吹き替え、VTuberの声質変換・音声アバター作成</li></ul>" },
-            { cat: "6. プラットフォーム・その他", name: "Hugging Face", provider: "ハブ", 
-              features: "「AI界のGitHub」と呼ばれる、AIモデルとデータセットの巨大なホスティングプラットフォーム。世界中の研究者や企業が最新モデルを公開・共有する、AI開発の中心地です。", 
-              use: "<ul><li>最新の画像認識モデルやオープンソースLLMの検索・ダウンロード</li><li>Spaces機能を使った自作AIアプリのデモ公開とポートフォリオ作成</li></ul>" },
-            { cat: "6. プラットフォーム・その他", name: "Civitai", provider: "画像ハブ", 
-              features: "Stable Diffusionなどの画像生成AIに特化したモデル（チェックポイント、LoRA）の巨大な共有コミュニティ。アニメ調、実写、特定の画風など無数のカスタマイズモデルが手に入ります。", 
-              use: "<ul><li>特定のキャラクターや衣装を生成するための追加学習データ（LoRA）の取得</li><li>高画質な実写風画像を生成するための最適化されたベースモデルの検索</li></ul>" }
+            { cat: "6. プラットフォーム・その他", name: "Antigravity", url: "https://antigravity.google/", provider: "Google", field: "エージェント用セキュア実行環境",
+              features: "AIエージェントがPC上で自律的に動作する際、安全を確保するためのサンドボックス型OS環境。AIの暴走を防ぎつつ、Google Cloudのリソースをシームレスに活用。将来的にエージェント開発の標準基盤を目指しています。", 
+              use: "<ul><li>自律型コーディングAIの安全な挙動監視と実行管理</li><li>マルチエージェントを大規模に並列動作させる基盤</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Suno AI", url: "https://suno.com/", provider: "Suno", field: "AI楽曲制作",
+              features: "テキストから2分間のフル楽曲（ボーカル、楽器、歌詞）を生成。あらゆるジャンルに対応し、プロレベルの音質を誇ります。音楽知識がなくても、感情的なメロディや疾走感のある曲を自由自在に作れます。", 
+              use: "<ul><li>YouTube動画や自作ゲームのBGM制作</li><li>オリジナルのテーマソングやジングル制作</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Udio", url: "https://www.udio.com/", provider: "Udio", field: "高品位AI音楽生成",
+              features: "驚異的な音楽的クオリティと音質の良さが特徴。ボーカルの細かなニュアンスや楽器の響きが極めてリアル。生成した楽曲を継ぎ足して長くしたり、特定のパートだけ修正したりする機能が充実しています。", 
+              use: "<ul><li>高音質な楽曲制作、商用レベルの楽曲のプロトタイプ作成</li><li>音楽教育やクリエイティブな実験</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "ElevenLabs", url: "https://elevenlabs.io/", provider: "ElevenLabs", field: "AI音声合成・ボイスクローン",
+              features: "業界最高峰の音声合成AI。わずか数秒の音声データから、本人の声色、イントネーション、感情を完全に再現。テキストからのナレーション生成だけでなく、リアルタイムの音声変換も可能です。", 
+              use: "<ul><li>多言語動画への自分の声での吹き替え、オーディオブック作成</li><li>VTuberや配信者向けのボイスアバター作成</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Hugging Face", url: "https://huggingface.co/", provider: "Hugging Face", field: "AIモデル・ハブ",
+              features: "AI版GitHub。世界中の最新AIモデル、データセット、デモアプリが集約。開発者はここで最新のオープンソースLLMを入手し、自分のプロジェクトに組み込むのが現在のスタンダードな流れです。", 
+              use: "<ul><li>最新の画像認識、翻訳、LLM等のモデル調査と取得</li><li>AIコミュニティとの最新技術情報の共有</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Civitai", url: "https://civitai.com/", provider: "Civitai", field: "画像生成コミュニティ・資産ハブ",
+              features: "Stable Diffusion等の画像生成AIに特化したコミュニティサイト。特定の画風、特定の服装、特定のキャラクターを生成するための追加学習ファイル（LoRA）が膨大に公開されています。", 
+              use: "<ul><li>画像生成AIのクオリティを劇的に高めるための素材収集</li><li>世界中のユーザーによるプロンプト設定とモデルの学習</li></ul>" }
         ];
 
         const categories = [...new Set(catalog.map(item => item.cat))];
@@ -305,32 +346,33 @@
             cardGrid.innerHTML = '';
             const filtered = catalog.filter(item => {
                 const searchLower = searchText.toLowerCase();
-                const matchesSearch = item.name.toLowerCase().includes(searchLower) || 
-                                    item.features.toLowerCase().includes(searchLower) ||
-                                    item.use.toLowerCase().includes(searchLower) ||
-                                    item.provider.toLowerCase().includes(searchLower);
-                if (searchText) return matchesSearch;
-                return item.cat === currentTab;
+                return item.name.toLowerCase().includes(searchLower) || 
+                       item.features.toLowerCase().includes(searchLower) ||
+                       item.field.toLowerCase().includes(searchLower) ||
+                       item.provider.toLowerCase().includes(searchLower);
             });
 
-            filtered.forEach(item => {
+            const toDisplay = searchText ? filtered : filtered.filter(item => item.cat === currentTab);
+
+            toDisplay.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-header">
-                        <h3>${item.name}</h3>
+                        <h3><a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.name}</a></h3>
                         <span class="provider">${item.provider}</span>
+                        <div><span class="field-badge">${item.field}</span></div>
                     </div>
-                    <h4>📌 主な特徴</h4>
+                    <h4>📌 主な特徴（詳細）</h4>
                     <div class="features">${item.features}</div>
-                    <h4>💡 活用シナリオ</h4>
+                    <h4>💡 具体的活用例</h4>
                     <div class="usecase">${item.use}</div>
                 `;
                 cardGrid.appendChild(card);
             });
 
-            if (filtered.length === 0) {
-                cardGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted); font-size: 1.1rem; padding: 40px;">該当するツールが見つかりませんでした。別のキーワードをお試しください。</p>';
+            if (toDisplay.length === 0) {
+                cardGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px;">該当するツールが見つかりませんでした。</p>';
             }
         }
 
@@ -340,7 +382,6 @@
             renderTabs();
         };
 
-        // Initialize
         renderTabs();
         renderCards();
     </script>
