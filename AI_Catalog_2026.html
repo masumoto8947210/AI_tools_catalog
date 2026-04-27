@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI ツール詳細カタログ 2026</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --muted: #475569;
+            --border: #e2e8f0;
+            --accent: #eff6ff;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .search-container {
+            margin-bottom: 25px;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        #searchInput:focus {
+            border-color: var(--primary);
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+        .tab-button {
+            padding: 10px 18px;
+            background: none;
+            border: 1px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--muted);
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+        .tab-button:hover:not(.active) {
+            background-color: var(--border);
+            color: var(--text);
+        }
+        .grid {
+            display: grid;
+            /* 広げたテキストに対応するため、カードの最小幅を広く設定 */
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg);
+        }
+        .card h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+        .card .provider {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .card h4 {
+            margin: 15px 0 5px 0;
+            font-size: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .card .features {
+            font-size: 0.95rem;
+            color: var(--muted);
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+        .card .usecase {
+            font-size: 0.9rem;
+            background: var(--accent);
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: #1e40af;
+            border-left: 4px solid var(--primary);
+        }
+        .card .usecase ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>生成AI ツール詳細カタログ 2026</h1>
+            <p>各ツールの詳細な特徴と実践的な活用シナリオ</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ツール名、機能、活用例で検索... (例: Unity, RAG, ノーコード)">
+        </div>
+
+        <div class="tabs" id="tabsContainer"></div>
+
+        <div class="grid" id="cardGrid"></div>
+    </div>
+
+    <script>
+        const catalog = [
+            // 1. 対話・検索型
+            { cat: "1. 対話・検索型", name: "Gemini", provider: "Google", 
+              features: "100万トークンを超える圧倒的な長文コンテキストウィンドウを搭載。Google Workspace（ドキュメント、Gmail、ドライブ）とシームレスにネイティブ連携し、画像・音声・動画などマルチモーダルなデータを高度に理解します。", 
+              use: "<ul><li>数十ページに及ぶ複数の英語論文や仕様書を一括で読み込ませての要約・比較</li><li>Googleドライブ内のデータと連携した資料作成やデータ分析</li></ul>" },
+            { cat: "1. 対話・検索型", name: "ChatGPT / GPT-5", provider: "OpenAI", 
+              features: "業界標準の汎用テキスト生成AI。最新の推論特化モデル（o1/o3系）により、複雑な問題において人間を凌駕する思考プロセス（Chain of Thought）を実行。Advanced Voice Modeによる超自然な音声対話も強力です。", 
+              use: "<ul><li>アルゴリズムの複雑なバグの特定と修正案の構築</li><li>高度な数学的証明や論理パズルの解法</li><li>語学学習におけるネイティブ代わりの音声ロールプレイ</li></ul>" },
+            { cat: "1. 対話・検索型", name: "Claude 4 / 3.5", provider: "Anthropic", 
+              features: "非常に自然で人間らしい、流麗な日本語文章の生成能力を持ちます。コーディング能力においても極めて高く、Artifacts機能を使えば生成したコード（HTML/React等）をブラウザ上で即座にプレビュー・動作確認できます。", 
+              use: "<ul><li>読者を惹きつける高品質なブログ記事やレポートの執筆</li><li>Webアプリのプロトタイプを数分で作成し、UIをその場で調整</li></ul>" },
+            { cat: "1. 対話・検索型", name: "Perplexity AI", provider: "Perplexity", 
+              features: "「検索エンジン型」のAI。最新のWeb情報をリアルタイムでクロールし、回答の根拠となる信頼性の高いソース（URL）を引用番号付きで明確に提示。Pro検索では複数ステップの深掘り調査を自動実行します。", 
+              use: "<ul><li>最新のAI技術動向やニュースのファクトチェック</li><li>大学のレポート作成における、信頼できる学術論文や公式リファレンスの効率的な収集</li></ul>" },
+            { cat: "1. 対話・検索型", name: "DeepSeek-R1", provider: "DeepSeek", 
+              features: "推論・数学・コーディングのベンチマークでトップクラスに匹敵する性能を、圧倒的な低コストで実現。AI内部の「思考プロセス」を透過的に出力し、どのように答えを導き出したかを確認できます。", 
+              use: "<ul><li>複雑なロジック設計のステップバイステップでの検証</li><li>ローカルや自社サーバーに安価にデプロイしてのデータ一括処理</li></ul>" },
+            { cat: "1. 対話・検索型", name: "NotebookLM", provider: "Google", 
+              features: "アップロードしたPDFやテキストデータ「のみ」を情報源として回答するグラウンディング特化ツール。ハルシネーション（嘘）を防ぎます。資料に基づき、2人のAIが対話する「音声ポッドキャスト」を自動生成する機能が話題です。", 
+              use: "<ul><li>授業のレジュメを読み込ませ「自分専用のAI家庭教師」としてクイズを作らせる</li><li>難解な論文をラジオ番組風の音声に変換して通学中に聴く</li></ul>" },
+            
+            // 2. 画像・動画・3D
+            { cat: "2. 画像・動画・3D", name: "Midjourney", provider: "Midjourney", 
+              features: "プロンプトへの忠実度と芸術的な表現力が最高峰の画像生成AI。最新版では文字の描画にも対応し、Discord上で動作するため世界中のユーザーとのプロンプト共有が活発に行われています。", 
+              use: "<ul><li>Webサイトのヒーロー画像や広告バナーの作成</li><li>ゲームのコンセプトアート、SNS用の高品質なアイキャッチ制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Stable Diffusion", provider: "Stability AI", 
+              features: "オープンソースでPCローカル実行が可能。LoRAやControlNetを用いた細かな画風調整、ポーズ指定、特定のキャラクターの一貫した生成など、圧倒的なカスタマイズ性を誇る玄人向けツールです。", 
+              use: "<ul><li>自作ゲームの立ち絵量産や一貫性のあるキャラクター素材の作成</li><li>企業内での機密性の高いデザイン業務やオリジナルイラスト作成</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Sora / Luma / Runway", provider: "各社", 
+              features: "テキストや画像から、物理法則に沿った破綻のない高解像度動画を生成。カメラワーク（パン、ズーム）の指定や、画像から動画への変換（Image-to-Video）機能に優れ、映像制作の常識を覆しています。", 
+              use: "<ul><li>製品プロモーションビデオのBロール（背景映像）の即席作成</li><li>ミュージックビデオの幻想的な映像素材制作</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Synthesia / HeyGen", provider: "各社", 
+              features: "実写レベルのAIアバターが、入力テキストを自然なリップシンク（口の動き）で読み上げます。自分の顔と声を学習させたカスタムアバターも作成でき、100以上の言語へ自動で翻訳・吹き替えが可能です。", 
+              use: "<ul><li>社内向け研修動画やマニュアルの多言語展開</li><li>顔出し・撮影不要のYouTube解説動画の量産</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Meshy / Luma Genie", provider: "各社", 
+              features: "テキストや1枚の画像から、数分でテクスチャ付きの3Dモデル（obj/fbx等）を自動生成。ポリゴン数の削減など、ゲームエンジン向けの最適化機能も備え、3Dモデリングの時間を劇的に短縮します。", 
+              use: "<ul><li>UnityやUnreal Engineでのプロトタイプ開発における背景小物（プロップス）の爆速作成</li><li>AR/VRアプリケーション向けのアセット生成</li></ul>" },
+            { cat: "2. 画像・動画・3D", name: "Adobe Firefly", provider: "Adobe", 
+              features: "Adobeのストック画像など、著作権が完全にクリアなデータのみで学習されているため、企業が商用利用する際の法的リスクが極めて低いのが特徴。Photoshop等の既存ツールに「生成塗りつぶし」として深く統合されています。", 
+              use: "<ul><li>広告バナーの背景の自然な拡張や、不要物の違和感ない除去</li><li>商用ポスターやパッケージデザインの安全な素材生成</li></ul>" },
+
+            // 3. 開発エディタ
+            { cat: "3. 開発エディタ", name: "Cursor", provider: "Anysphere", 
+              features: "VS Codeをベースにした現在最も人気のAIエディタ。プロジェクトのフォルダ全体（Codebase）をインデックス化し、関連ファイルを跨いだ高度な文脈理解に基づくコード生成や修正提案（Composer機能）が強力です。", 
+              use: "<ul><li>新規アプリのベースコード一式の一括生成</li><li>関連ファイルにまたがる複雑なエラーの根本原因特定と自動修正</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Zed", provider: "Zed Industries", 
+              features: "Rust言語でゼロから開発された次世代エディタ。GPU描画による圧倒的な起動速度と入力の低遅延を実現。複数人でのリアルタイム共同編集と、エディタ内蔵のAI連携がシームレスに行えます。", 
+              use: "<ul><li>遅延を極端に嫌うヘビーなコーディング作業</li><li>チームメンバーやAIとのリモートでの快適なペアプログラミング</li></ul>" },
+            { cat: "3. 開発エディタ", name: "Windsurf", provider: "Codium", 
+              features: "開発者の「フロー状態」の維持を重視したIDE。AIが開発者の意図を先読みし、カーソル位置のコンテキストから自律的に複数ファイルの編集やターミナルコマンドの実行までを行う「エージェント型」の機能が特徴です。", 
+              use: "<ul><li>ライブラリのバージョンアップに伴う複数ファイルの一括リファクタリング</li><li>コードを書きながらバックグラウンドで自動的にテストを走らせる</li></ul>" },
+            { cat: "3. 開発エディタ", name: "GitHub Copilot", provider: "Microsoft", 
+              features: "開発環境のデファクトスタンダード。コメントを書くだけで関数全体を提案する強力な補完機能や、チャットによるコード解説を提供。既存の様々なエディタに拡張機能として導入できます。", 
+              use: "<ul><li>ボイラープレート（定型コード）の高速タイピング</li><li>複雑な正規表現やSQLクエリ、テストコードの自動生成</li></ul>" },
+            { cat: "3. 開発エディタ", name: "v0.dev / Lovable", provider: "各社", 
+              features: "プロンプト（テキスト指示）を入力するだけで、モダンなUIコンポーネント（React/Tailwind CSS）やWebアプリケーションのフロントエンド画面一式を数秒で生成し、即座にプレビュー表示します。", 
+              use: "<ul><li>ハッカソンでの爆速プロトタイプ作成</li><li>デザイナー不在のプロジェクトでの管理画面UIの構築</li></ul>" },
+
+            // 4. AIエージェント
+            { cat: "4. AIエージェント", name: "Claude Code", provider: "Anthropic", 
+              features: "ターミナル（CLI）上で直接動作する開発者向けエージェント。ファイルの読み書き、コマンドの実行、エラーの修正を完全に自律的にループ処理し、外部ツール（MCP）との連携も可能です。", 
+              use: "<ul><li>既存のC#スクリプトのテストコード自動作成と実行・修正のループ</li><li>大規模なディレクトリ構造やファイル名の一括変更</li></ul>" },
+            { cat: "4. AIエージェント", name: "OpenClaw (Molt Bot)", provider: "Open Source", 
+              features: "PCのローカル環境で動作する自律アシスタント。ブラウザ操作やファイル操作の権限を持ち、Discordやスマホアプリからの自然言語の指示で自宅のPCを遠隔操作できるオープンソースプロジェクトです。", 
+              use: "<ul><li>「毎朝特定のサイトを巡回してスクショを撮り、Slackに報告する」といった日常業務の自動化</li><li>スマホから指示して自宅PCに重い処理をやらせる</li></ul>" },
+            { cat: "4. AIエージェント", name: "Devin / Devika", provider: "各社", 
+              features: "「世界初のAIソフトウェアエンジニア」。抽象的な要件を伝えるだけで、自分で計画を立て、ブラウザでAPIドキュメントを読み、環境構築からコーディング、デバッグ、デプロイまでをEnd-to-Endで遂行します。", 
+              use: "<ul><li>クラウドソーシングでのシンプルなWeb開発案件の自動消化</li><li>社内用ツールやスクレイピングBotのゼロからの完全自動構築</li></ul>" },
+            { cat: "4. AIエージェント", name: "Dify / Coze", provider: "各社", 
+              features: "ノーコード・ローコードで、RAG（検索拡張生成）やAPI連携を組み合わせた複雑なAIエージェント（ワークフロー）を視覚的に設計・公開できる強力な開発プラットフォームです。", 
+              use: "<ul><li>自社のFAQやマニュアルを読み込ませた高精度なカスタマーサポートBotの構築</li><li>指定URLから情報を抽出・翻訳・要約する自動情報収集ツールの作成</li></ul>" },
+            { cat: "4. AIエージェント", name: "Operator", provider: "OpenAI", 
+              features: "ユーザーの代わりにWebブラウザを直接操作し、フォームの入力、クリック、画面遷移などの「行動」を代行するエージェント。複雑なWeb上のタスクをテキストの指示だけで完結させます。", 
+              use: "<ul><li>出張の手配（ホテル・飛行機の最安値検索、スケジュール調整から予約まで）</li><li>競合他社の複数のECサイトを横断した価格・在庫調査</li></ul>" },
+
+            // 5. ローカルLLM
+            { cat: "5. ローカルLLM", name: "Ollama", provider: "Ollama", 
+              features: "ローカル環境でLLMを動かすための最もポピュラーで軽量なツール。コマンド一つでモデルをダウンロードでき、REST APIサーバーとしても機能するため、他のアプリとの連携が極めて容易です。", 
+              use: "<ul><li>Cursorや他のエディタのカスタムモデル（バックエンド）としての利用</li><li>自作のPythonスクリプトからローカルAIを呼び出しての安全なデータ一括処理</li></ul>" },
+            { cat: "5. ローカルLLM", name: "LM Studio", provider: "LM Studio", 
+              features: "ターミナル操作が苦手な人でも使える、洗練されたGUIを備えたAI管理ソフト。Hugging Faceからモデルを検索・ダウンロードし、チャット画面で即座にテストやパラメータ調整ができます。", 
+              use: "<ul><li>PCのVRAM容量に合わせた最適な量子化モデルの選定とダウンロード</li><li>複数モデルを並べての回答精度の比較テスト</li></ul>" },
+            { cat: "5. ローカルLLM", name: "Llama 4", provider: "Meta", 
+              features: "Meta社がオープンソースで提供する業界最高峰のモデル。軽量モデルでも商用レベルの推論能力を持ち、コンテキスト長が非常に長いバージョンもあるため、オフライン環境での最高峰の知能として機能します。", 
+              use: "<ul><li>外部に送信できない機密性の高い顧客データや医療データの社内処理</li><li>独自の社内用語をファインチューニングした特化型モデルの開発基盤</li></ul>" },
+            { cat: "5. ローカルLLM", name: "Qwen 3 / 3.5", provider: "Alibaba", 
+              features: "オープンソースでありながら、日本語の語彙と文化的ニュアンスの理解において群を抜いており、比較的小さなパラメータサイズ（4B〜14B）でも非常に賢く動作します。", 
+              use: "<ul><li>GPU搭載のノートPCでの快適なオフライン日本語チャット</li><li>スマホアプリやエッジデバイスへの軽量モデルの組み込み</li></ul>" },
+            { cat: "5. ローカルLLM", name: "AnythingLLM", provider: "Mintplex", 
+              features: "デスクトップアプリ型の「オールインワンRAGツール」。手元のPDFやWordファイルをドラッグ＆ドロップするだけで、その内容について質問できるローカルAI環境を安全に構築できます。", 
+              use: "<ul><li>社外秘の研究データや未公開論文を読み込ませての安全な検索・要約システム</li><li>個人の日記や過去のプロジェクト資料のデータベース化</li></ul>" },
+
+            // 6. プラットフォーム・その他
+            { cat: "6. プラットフォーム・その他", name: "Antigravity", provider: "基盤", 
+              features: "AIエージェントを隔離された安全な環境（サンドボックス）で動作させるための実行インフラ。エージェントの暴走による意図しないファイル削除や、PCリソースの過剰消費をシステムレベルで防ぎます。", 
+              use: "<ul><li>未知のオープンソース・エージェントをローカルで安全にテスト動作させる</li><li>複数のAIエージェントを連携動作させる際の共通プラットフォームとして</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Suno AI / Udio", provider: "各社", 
+              features: "歌詞や音楽のジャンル（例：「J-POP、疾走感、男性ボーカル」）を指定するだけで、ボーカル入りの高品質なフル尺の楽曲を数分で生成。プロ顔負けの音質で、音楽制作のハードルをゼロにしました。", 
+              use: "<ul><li>YouTube動画のオープニングBGMやエンディングテーマ作成</li><li>インディーゲームの主題歌制作、オリジナルのポッドキャスト用ジングル</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "ElevenLabs", provider: "音声", 
+              features: "わずか数秒の音声サンプルから、本人の声色やイントネーションを完全に再現するボイスクローニング機能が最強。感情の起伏を付けた極めて自然で高音質なナレーション生成が可能です。", 
+              use: "<ul><li>オーディオブックの自動読み上げ制作</li><li>多言語動画の自声吹き替え、VTuberの声質変換・音声アバター作成</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Hugging Face", provider: "ハブ", 
+              features: "「AI界のGitHub」と呼ばれる、AIモデルとデータセットの巨大なホスティングプラットフォーム。世界中の研究者や企業が最新モデルを公開・共有する、AI開発の中心地です。", 
+              use: "<ul><li>最新の画像認識モデルやオープンソースLLMの検索・ダウンロード</li><li>Spaces機能を使った自作AIアプリのデモ公開とポートフォリオ作成</li></ul>" },
+            { cat: "6. プラットフォーム・その他", name: "Civitai", provider: "画像ハブ", 
+              features: "Stable Diffusionなどの画像生成AIに特化したモデル（チェックポイント、LoRA）の巨大な共有コミュニティ。アニメ調、実写、特定の画風など無数のカスタマイズモデルが手に入ります。", 
+              use: "<ul><li>特定のキャラクターや衣装を生成するための追加学習データ（LoRA）の取得</li><li>高画質な実写風画像を生成するための最適化されたベースモデルの検索</li></ul>" }
+        ];
+
+        const categories = [...new Set(catalog.map(item => item.cat))];
+        let currentTab = categories[0];
+        let searchText = "";
+
+        const tabsContainer = document.getElementById('tabsContainer');
+        const cardGrid = document.getElementById('cardGrid');
+        const searchInput = document.getElementById('searchInput');
+
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `tab-button ${currentTab === cat && !searchText ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.onclick = () => {
+                    currentTab = cat;
+                    searchText = "";
+                    searchInput.value = "";
+                    renderCards();
+                    renderTabs();
+                };
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderCards() {
+            cardGrid.innerHTML = '';
+            const filtered = catalog.filter(item => {
+                const searchLower = searchText.toLowerCase();
+                const matchesSearch = item.name.toLowerCase().includes(searchLower) || 
+                                    item.features.toLowerCase().includes(searchLower) ||
+                                    item.use.toLowerCase().includes(searchLower) ||
+                                    item.provider.toLowerCase().includes(searchLower);
+                if (searchText) return matchesSearch;
+                return item.cat === currentTab;
+            });
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <h3>${item.name}</h3>
+                        <span class="provider">${item.provider}</span>
+                    </div>
+                    <h4>📌 主な特徴</h4>
+                    <div class="features">${item.features}</div>
+                    <h4>💡 活用シナリオ</h4>
+                    <div class="usecase">${item.use}</div>
+                `;
+                cardGrid.appendChild(card);
+            });
+
+            if (filtered.length === 0) {
+                cardGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted); font-size: 1.1rem; padding: 40px;">該当するツールが見つかりませんでした。別のキーワードをお試しください。</p>';
+            }
+        }
+
+        searchInput.oninput = (e) => {
+            searchText = e.target.value;
+            renderCards();
+            renderTabs();
+        };
+
+        // Initialize
+        renderTabs();
+        renderCards();
+    </script>
+</body>
+</html>
